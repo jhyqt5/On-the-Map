@@ -11,7 +11,7 @@ import UIKit
 import Parse
 
 class LoginViewController: UIViewController {
-    var userID: String!
+    var id: String!
 
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
@@ -58,7 +58,7 @@ class LoginViewController: UIViewController {
                     }
                     
                     if let key = userDict["key"] as? String {
-                        self.userID = key
+                        self.id = key
                     }
                     
                     self.completeLogin()
@@ -82,7 +82,7 @@ class LoginViewController: UIViewController {
             let TabBarVC = segue.destinationViewController as! UITabBarController
             let NavVC = TabBarVC.viewControllers![0] as! UINavigationController
             let destinationVC = NavVC.viewControllers[0] as! MapViewController
-            destinationVC.userID = userID
+            destinationVC.userID = id
         }
     }
     

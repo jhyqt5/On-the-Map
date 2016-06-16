@@ -102,12 +102,26 @@
                     <view key="view" contentMode="scaleToFill" id="RSE-uq-qb4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="jzH-yY-ioO">
+                                <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="725-NQ-hV8" firstAttribute="top" secondItem="jzH-yY-ioO" secondAttribute="bottom" id="73G-CE-xEj"/>
+                            <constraint firstItem="jzH-yY-ioO" firstAttribute="leading" secondItem="RSE-uq-qb4" secondAttribute="leadingMargin" constant="-20" id="AH6-WO-SYC"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="jzH-yY-ioO" secondAttribute="trailing" constant="-20" id="GYr-AB-3jl"/>
+                            <constraint firstItem="jzH-yY-ioO" firstAttribute="top" secondItem="Jz7-As-re6" secondAttribute="bottom" id="IfL-vh-Tvi"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Map View" id="w7q-4t-ilZ">
                         <barButtonItem key="leftBarButtonItem" image="pin-icon" id="6mZ-Dj-fiq"/>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="map" destination="jzH-yY-ioO" id="8kv-fv-c8F"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PZM-Ov-aK4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
