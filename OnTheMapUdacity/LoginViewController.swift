@@ -35,40 +35,55 @@ class LoginViewController: UIViewController {
         
         let session = NSURLSession.sharedSession()
         
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-        if error != nil {
-            return
-        }
-            // handle data
-            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
-            let json: NSDictionary?
-            
-            do {
-                try json = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary
-            } catch let parseError as NSError {
-                print(parseError)
-                return
-            }
-            
-            guard let userDict = json?["account"] as? [String: AnyObject]
-                else {
+        let task = session.dataTaskWithRequest(request) {
+            data, response, error in
+                if error != nil {
                     return
-            }
-        
-            if let key = userDict["key"] as? String {
-                self.userID = key
-                
-            }
+                }
+                dispatch_async(dispatch_get_main_queue(),{
+                    
+                    let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
+                    let json: NSDictionary?
+                    
+                    do {
+                        try json = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary
+                    } catch let parseError as NSError {
+                        print(parseError)
+                        return
+                    }
+                    
+                    guard let userDict = json?["account"] as? [String: AnyObject]
+                        else {
+                            return
+                    }
+                    
+                    if let key = userDict["key"] as? String {
+                        self.userID = key
+                    }
+                    
+                    self.completeLogin()
+
+                })
             
-            self.completeLogin()
-        }
+            }
         
         task.resume()
+        
     } //end action
     
 
     func completeLogin() {
-        
+        performSegueWithIdentifier("showMap", sender: self)
+    }
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showMap" {
+            let TabBarVC = segue.destinationViewController as! UITabBarController
+            let NavVC = TabBarVC.viewControllers![0] as! UINavigationController
+            let destinationVC = NavVC.viewControllers[0] as! MapViewController
+            destinationVC.userID = userID
+        }
     }
     
 } //end controller
