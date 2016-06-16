@@ -50,17 +50,26 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="Don't have an account? Sign up"/>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XlS-S2-pwI">
+                                <rect key="frame" x="139" y="439" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="1" green="0.25490196079999999" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="wyV-Ya-jgT" firstAttribute="top" secondItem="lOP-yo-RJ0" secondAttribute="bottom" id="2mS-of-L7B"/>
                             <constraint firstItem="dxj-qT-fj0" firstAttribute="top" secondItem="wyV-Ya-jgT" secondAttribute="bottom" constant="15" id="5zk-Ut-XgI"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="XlS-S2-pwI" secondAttribute="trailing" id="7l4-v4-7Uj"/>
                             <constraint firstItem="lOP-yo-RJ0" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="50" id="CAV-ph-Dzo"/>
+                            <constraint firstItem="XlS-S2-pwI" firstAttribute="top" secondItem="PqM-vI-1RC" secondAttribute="bottom" constant="35" id="Hva-bi-Bbl"/>
                             <constraint firstItem="v1l-El-Cdh" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="JvK-Lj-QtP"/>
                             <constraint firstItem="wyV-Ya-jgT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="NxR-eE-NQy"/>
                             <constraint firstItem="dxj-qT-fj0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="UXI-pC-N6h"/>
                             <constraint firstItem="v1l-El-Cdh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="VZ1-v2-cp7"/>
                             <constraint firstItem="PqM-vI-1RC" firstAttribute="top" secondItem="v1l-El-Cdh" secondAttribute="bottom" constant="15" id="XYJ-hh-1Uv"/>
+                            <constraint firstItem="XlS-S2-pwI" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="YjV-lF-0Id"/>
                             <constraint firstItem="dxj-qT-fj0" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="aHt-wk-mhm"/>
                             <constraint firstItem="wyV-Ya-jgT" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="bMQ-S0-Ofs"/>
                             <constraint firstItem="v1l-El-Cdh" firstAttribute="top" secondItem="dxj-qT-fj0" secondAttribute="bottom" constant="15" id="l1h-Fp-1ih"/>
@@ -72,6 +81,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="email" destination="wyV-Ya-jgT" id="bxZ-C1-i89"/>
+                        <outlet property="errorMessage" destination="XlS-S2-pwI" id="wLu-UG-EZm"/>
                         <outlet property="login" destination="v1l-El-Cdh" id="2iZ-RM-Mbn"/>
                         <outlet property="password" destination="dxj-qT-fj0" id="Y6g-NS-fyg"/>
                     </connections>
