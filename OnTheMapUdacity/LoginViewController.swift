@@ -11,7 +11,7 @@ import UIKit
 import Parse
 
 class LoginViewController: UIViewController {
-
+    var userID: String!
 
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
@@ -33,21 +33,42 @@ class LoginViewController: UIViewController {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.HTTPBody = "{\"udacity\": {\"username\": \"\(email.text!)\", \"password\": \"\(password.text!)\"}}".dataUsingEncoding(NSUTF8StringEncoding)
         
-        print(request)
-        
         let session = NSURLSession.sharedSession()
         
         let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil {
+        if error != nil {
+            return
+        }
+            // handle data
+            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
+            let json: NSDictionary?
+            
+            do {
+                try json = NSJSONSerialization.JSONObjectWithData(newData, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary
+            } catch let parseError as NSError {
+                print(parseError)
                 return
             }
             
-            // handle data
-            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5))
-            print(NSString(data: newData, encoding: NSUTF8StringEncoding))
+            guard let userDict = json?["account"] as? [String: AnyObject]
+                else {
+                    return
+            }
+        
+            if let key = userDict["key"] as? String {
+                self.userID = key
+                
+            }
+            
+            self.completeLogin()
         }
         
         task.resume()
     } //end action
     
-}
+
+    func completeLogin() {
+        
+    }
+    
+} //end controller
