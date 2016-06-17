@@ -9,6 +9,10 @@
 import UIKit
 import Parse
 import MapKit
+import CoreLocation
+import AddressBook
+
+
 
 
 class MapViewController: UIViewController, MKMapViewDelegate {
@@ -21,14 +25,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var firstName: String!
     
     //location init
-    var longitude: CLLocation!
-    var latitude: CLLocation!
-    var latDelta: CLLocation!
-    var lonDelta: CLLocation!
-    var span: MKCoordinateSpan!
-    var location: CLLocationCoordinate2D!
-    var region: MKCoordinateRegion!
-    
+    var locations = [String]()
+    var names = [String]()
+    var links = [String]()
     
     @IBAction func createMapAnnotation(sender: AnyObject) {
         performSegueWithIdentifier("showSetLocation", sender: self)
@@ -43,16 +42,54 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    func getStudentMapLocations(){
+        let query = PFQuery(className: "Location")
+        query.findObjectsInBackgroundWithBlock { (objects, error) in
+            if error == nil {
+                if let objects = objects {
+                    for object in objects {
+                        
+                        //get locations
+                        if let place = object["coordinates"] {
+                            self.locations.append(place as! String)
+                        }
+                        
+                        //get names
+                        if let firstname = object["firstName"] {
+                            if let lastname = object["lastName"] {
+                                self.names.append("\(firstname as! String) \(lastname as! String)")
+                            }
+                        }
+                        
+                        //get links
+                        if let link = object["sharedLink"] {
+                            self.links.append(link as! String)
+                        }
+                    }
+                    
+                    self.addItemsMaps()
+                    
+                }
+            } else {
+                print(error)
+            }
+        } //end query
+        
+        
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Get the user info
         getUserInfo()
         findStudent()
+    }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
-        //get student locations and add to map
-        
+        getStudentMapLocations()
     }
     
     func findStudent() {
@@ -120,6 +157,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     
+    func addItemsMaps() {
+        print(locations)
+        print(names)
+        print(links)
+    }
 
 
 
