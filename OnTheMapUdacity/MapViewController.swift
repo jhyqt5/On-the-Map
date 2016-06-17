@@ -29,12 +29,57 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var location: CLLocationCoordinate2D!
     var region: MKCoordinateRegion!
     
+    
+    @IBAction func createMapAnnotation(sender: AnyObject) {
+        performSegueWithIdentifier("showSetLocation", sender: self)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showSetLocation" {
+            let vc = segue.destinationViewController as! SetLocationViewController
+            
+            vc.userInfo = ["id" : userID, "firstName" : firstName, "lastName" : lastName]
+            
+        }
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // Get the user info
         getUserInfo()
+        findStudent()
+    
+        
+        //get student locations and add to map
         
     }
+    
+    func findStudent() {
+        //find user, if not exist, create
+        
+        let query = PFQuery(className:"Student")
+        query.whereKey("student_id", equalTo: userID!)
+        query.findObjectsInBackgroundWithBlock { (students, error) in
+            if let error = error {
+                print(error)
+            } else if let students = students {
+                if students == [] {
+                    self.createStudent()
+                }
+            }
+        }
+    }
+    
+    func createStudent(){
+        let student = PFObject(className:"Student")
+        
+        student["student_id"] = userID
+        student["firstName"] = firstName
+        student["lastName"] = lastName
+        
+        try! student.save()
+    } // end func
     
     func getUserInfo() {
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/users/\(userID)")!)
@@ -67,7 +112,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                         self.lastName = slastname
                         self.firstName = sfirstname
                     }
-                } 
+                }
             }) //end dispatch
         } // end task
         
