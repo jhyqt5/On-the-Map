@@ -7,10 +7,10 @@
 //
 
 import UIKit
-import Parse
-import MapKit
 import CoreLocation
 import AddressBook
+import MapKit
+import Parse
 
 
 
@@ -28,6 +28,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var locations = [String]()
     var names = [String]()
     var links = [String]()
+    
+    //mapkit
+    var coords: CLLocationCoordinate2D!
     
     @IBAction func createMapAnnotation(sender: AnyObject) {
         performSegueWithIdentifier("showSetLocation", sender: self)
@@ -84,6 +87,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         // Get the user info
         getUserInfo()
         findStudent()
+        map.delegate = self
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -156,13 +160,78 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         task.resume()
     }
     
+    var i = 0
     
     func addItemsMaps() {
-        print(locations)
-        print(names)
-        print(links)
+
+        
+        while i < locations.count {
+            let geoCoder = CLGeocoder()
+            
+            geoCoder.geocodeAddressString(locations[i]) { (placemarks, error) in
+                if error != nil {
+                    print("Geocode failed with error: \(error!.localizedDescription)")
+                } else if placemarks?.count > 0 {
+                    let placemark = placemarks![0]
+                    let location = placemark.location
+                    self.coords = location!.coordinate
+                    
+                    
+                    self.showMap()
+                }
+            }
+            i = i + 1
+        } //end while
     }
+    
+    
+    func showMap() {
+        let latDelta: CLLocationDegrees = 50
+        let lonDelta: CLLocationDegrees = 50
+        
+        let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: lonDelta)
+        let region: MKCoordinateRegion = MKCoordinateRegion(center: coords!, span: span)
+        
+    
+        map.setRegion(region, animated: true)
+        
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coords!
+        annotation.title = names[0] //fatal error index out of range?
+        annotation.subtitle = links[0] //fatal error index out of range?
+        
+        map.addAnnotation(annotation)
+    }
+    
+    //add button
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        let reuseId = "pin"
+        
+        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = true
 
-
+            pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
+        }
+        else {
+            pinView!.annotation = annotation
+        }
+        return pinView!
+    }
+    
+    
+    func mapView(mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if control == annotationView.rightCalloutAccessoryView {
+            
+            let link = (annotationView.annotation?.subtitle)! as String!
+            
+            UIApplication.sharedApplication().openURL(NSURL(string: link)!)
+            
+        }
+    }
+    
 
 } //end controller

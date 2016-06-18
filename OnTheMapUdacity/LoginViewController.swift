@@ -58,7 +58,10 @@ class LoginViewController: UIViewController {
                     }
                     
                     if let key = userDict["key"] as? String {
-                        self.id = key
+                        let object = UIApplication.sharedApplication().delegate
+                        let appDelegate = object as! AppDelegate
+                        appDelegate.userID = key
+                        
                     }
                     
                     self.completeLogin()
@@ -82,8 +85,13 @@ class LoginViewController: UIViewController {
             let TabBarVC = segue.destinationViewController as! UITabBarController
             let NavVC = TabBarVC.viewControllers![0] as! UINavigationController
             let destinationVC = NavVC.viewControllers[0] as! MapViewController
-            destinationVC.userID = id
+            destinationVC.userID = (UIApplication.sharedApplication().delegate as! AppDelegate).userID
         }
     }
+    
+    @IBAction func signUpButton(sender: AnyObject) {
+        UIApplication.sharedApplication().openURL(NSURL(string: "https://www.udacity.com/account/auth#!/signup")!)
+    }
+    
     
 } //end controller

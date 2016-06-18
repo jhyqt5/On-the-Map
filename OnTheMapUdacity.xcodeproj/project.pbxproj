@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37155A2C1D14C1DD00F60BD3 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37155A2B1D14C1DD00F60BD3 /* ListViewController.swift */; };
 		37ADC0281D1335560024D00F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ADC0271D1335560024D00F /* MapViewController.swift */; };
 		37ADC02A1D1364810024D00F /* SetLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ADC0291D1364810024D00F /* SetLocationViewController.swift */; };
 		37ADC02C1D137CD50024D00F /* AddStudentLinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37ADC02B1D137CD50024D00F /* AddStudentLinkViewController.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		37155A2B1D14C1DD00F60BD3 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		37ADC0271D1335560024D00F /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		37ADC0291D1364810024D00F /* SetLocationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetLocationViewController.swift; sourceTree = "<group>"; };
 		37ADC02B1D137CD50024D00F /* AddStudentLinkViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddStudentLinkViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				814C3AC61B69877600E307BB /* Main.storyboard */,
 				37ADC0291D1364810024D00F /* SetLocationViewController.swift */,
 				37ADC02B1D137CD50024D00F /* AddStudentLinkViewController.swift */,
+				37155A2B1D14C1DD00F60BD3 /* ListViewController.swift */,
 			);
 			path = OnTheMapUdacity;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 			files = (
 				37ADC02C1D137CD50024D00F /* AddStudentLinkViewController.swift in Sources */,
 				81BA814D1A49DA1800E65899 /* LoginViewController.swift in Sources */,
+				37155A2C1D14C1DD00F60BD3 /* ListViewController.swift in Sources */,
 				37ADC0281D1335560024D00F /* MapViewController.swift in Sources */,
 				37ADC02A1D1364810024D00F /* SetLocationViewController.swift in Sources */,
 				81BA814B1A49DA1800E65899 /* AppDelegate.swift in Sources */,

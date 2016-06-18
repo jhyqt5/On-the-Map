@@ -16,7 +16,7 @@ import Parse
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    var user_id: String?
+    var userID: String?
     var window: UIWindow?
     //--------------------------------------
     // MARK: - UIApplicationDelegate
